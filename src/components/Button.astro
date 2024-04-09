@@ -1,0 +1,32 @@
+---
+
+const {backgroundColor, isBlack} = Astro.props
+---
+
+<div class="relative top-0 group w-full">
+    <button
+        style={`background-color: ${backgroundColor};`}
+      class={`font-syne relative top-0 left-0 w-full  z-[10] font-semibold text-base  border-2 border-black rounded-xl px-2 py-1 duration-300 transition-all ${
+        isBlack
+          ? " text-white hover:text-black "
+          : ""
+      }`}
+    >
+      <span>
+        <slot />
+      </span>
+    </button>
+    <>
+      
+      {isBlack && (
+        <>
+          <div
+            class={` absolute inset-0 z-[1] top-0 left-0 bg-pink-400 w-full h-full translate-x-0 translate-y-0  group-hover:translate-y-1 group-hover:-translate-x-1  font-semibold text-base  border border-black rounded-xl px-6 py-3 duration-300 transition-all`}
+          ></div>
+          <div
+            class={` absolute inset-0 z-[0] top-0 left-0 bg-blue-500 w-full h-full translate-x-0 translate-y-0  group-hover:translate-y-2 group-hover:-translate-x-2  font-semibold text-base  border-2 border-black rounded-xl px-6 py-3 duration-300 transition-all`}
+          ></div>
+        </>
+      )}
+    </>
+  </div>

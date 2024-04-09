@@ -1,15 +1,33 @@
 ---
 import FastMarquee from "../components/FastMarquee";
+import Parts from "../components/Parts.astro";
 import Slogans from "../components/Slogans.astro";
 import Layout from "../layouts/Layout.astro";
+import Latest from "../components/Latest.astro"
+import axios from "axios"
+
+
+let data = []
+const getShoesData = async () => {
+  const response = await axios.get("https://modern-tights-cod.cyclic.app/api/products")
+  // console.log(response.data.data)
+  return response.data.data
+}
+data = await getShoesData()
 ---
 
 <Layout title="ShoeNeo - Magnificent Shoe Store">
-  <main class="">
-    <h1 class="text-4xl font-black">hello world</h1>
-
+  <main class="w-full overflow-hidden">
     <section>
+      <Parts />
+    </section>
+
+    <section class="mt-5 relative z-[2]">
       <Slogans />
+    </section>
+
+    <section class="relative z-[1] -mt-20 mb-20 container mx-auto">
+      <Latest data={data} />
     </section>
   </main>
 </Layout>

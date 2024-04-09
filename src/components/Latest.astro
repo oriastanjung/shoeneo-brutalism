@@ -1,0 +1,55 @@
+---
+import DraggableCarousel from "../components/DraggableCarousel"
+import LatestCards from "./LatestCards.astro"
+function shuffleData(data) {
+    for (let i = data.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [data[i], data[j]] = [data[j], data[i]];
+    }
+    return data;
+}
+const {data} = Astro.props
+const products = await shuffleData(data)
+---
+
+<div class=" relative flex flex-col justify-center items-center pt-40 lg:pt-20">
+    <div class="w-full h-full object-cover object-center absolute top-0">
+        <img src="/background-boxes.svg" class="w-full h-full object-cover object-center" alt="" loading="lazy">
+    </div>
+    <div class="relative z-[2] flex flex-col justify-center items-center gap-4 container mx-auto">
+        <h2 class="text-white font-bold text-lg md:text-2xl lg:text-4xl text-center [text-shadow:_2px_2px_0_rgb(0_0_0_/_100%)] lg:[text-shadow:_4px_4px_0_rgb(0_0_0_/_100%)] uppercase">
+            FROM THE latest collection of kicks
+        </h2>
+        <div class="w-full relative flex flex-row justify-end my-10">
+            <div class="lg:py-16 md:py-6 px-3 md:px-6  lg:px-24 w-3/4 md:w-11/12 lg:w-10/12 bg-purple-300 flex flex-col text-right  rounded-3xl">
+                <h3 class="uppercase font-bold text-xl md:text-3xl lg:text-5xl pt-3 lg:pt-0">
+                    AIR JORDAN <br> Retro 7
+                </h3>
+                <div class="flex flex-col md:flex-row gap-2 justify-end lg:mt-4 lg:mb-4">
+                    <p class="text-sm md:text-base lg:text-xl text-[#636363] bg-[#DEDEDE] px-2 py-1">Men{"'"}s Shoes</p>
+                    <p class="text-sm md:text-base lg:text-xl ">2 Colors</p>
+                </div>
+                <p class="uppercase font-bold text-xl md:text-3xl lg:text-5xl text-[#4B4B4B] pt-3  md:pt-0 pb-3 md:pb-0">
+                    $350,-
+                </p>
+            </div>
+            <div class="h-44 md:h-52 lg:h-[21.25rem] w-44 md:w-52 lg:w-[21.25rem] rounded-full bg-purple-500 absolute top-[0rem] -left-0 md:left-0 lg:left-4">
+                <img src="/latest-img.png" class="object-cover object-center w-full h-full scale-150 relative left-10" alt="">
+            </div>
+        </div>
+        <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <!-- {console.log("data >> ",data)} -->
+            {products.slice(0,4).map((item) => {
+                return (
+                    <div class="group cursor-pointer">
+                        <div class=" w-64 h-64 object-cover object-center rounded-xl border-2 border-black overflow-hidden ">
+                    <img src={item.thumbnailUrl} class="group-hover:scale-[105%] duration-300 ease-in-out transform transition-all w-full h-full object-center  object-cover " alt="">
+                        </div>
+                        <div class="group-hover:underline flex justify-center items-center border-black px-3 py-2 text-center w-64 h-14 line-clamp-2 border-2 rounded-lg mt-2 font-semibold text-xs md:text-sm">{item.name}</div>
+                        </div>
+                )
+            })}
+        </div>
+    </div>
+
+</div>
